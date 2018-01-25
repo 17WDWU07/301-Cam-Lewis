@@ -65,8 +65,8 @@ function drawDashboard () {
           	chartType: 'GeoChart',
           	containerId: 'chart1',
           		options: {
-            		width: '400',
-                	height: '400',
+            		width: '450',
+                	height: '470',
                 	legend: 'none',
                 	title: 'Country vs employment rate',
                 	backgroundColor: {
@@ -164,7 +164,12 @@ function drawDashboard () {
 
       var options = {
 	      title: "Employment rate among the class",
-        slices: {  
+        width: '590',
+        height: '400',
+        colors:['white', '#ffffff'],
+        legend: {textStyle: {color: 'white'}},
+        titleTextStyle: {color: 'white'},
+        slices: {
             0: {color: '#336E7B'},
             1: {color: '#2574A9'}
         },
@@ -201,10 +206,12 @@ function drawDashboard () {
       dataEmployed.addRow(["No", no]);
 
       var options = {
-    		title: "Employment rate among the class",
-    		backgroundColor: {
-    			fill: "transparent"
-		    }
+		title: "Employment rate among the class",
+    legend: 'none',
+    titleTextStyle: {color: 'white'},
+		backgroundColor: {
+			fill: "transparent"
+		}
       };
 
       var Bar = new google.visualization.BarChart(document.getElementById('chart3'));
@@ -232,6 +239,10 @@ function drawDashboard () {
       var options = {
         title: "Gender makeup",
         pieHole: 0.4,
+        width: '570',
+        height: '500',
+        legend: {textStyle: {color: 'white'}},
+        titleTextStyle: {color: 'white'},
         slices: {  
             0: {offset: 0.2, color: '#336E7B'},
             1: {color: '#34495E'}
