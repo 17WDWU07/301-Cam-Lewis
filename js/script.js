@@ -21,7 +21,8 @@
 // 		chartFour.scrollIntoView();
 // });
 
-google.charts.load('current', {packages: ['corechart', 'controls']});
+google.charts.load('current', {packages: ['geochart', 'corechart', 'controls'],
+'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
 google.charts.setOnLoadCallback(drawDashboard);
 
 function drawDashboard () {
@@ -52,20 +53,20 @@ function drawDashboard () {
 
       	var dashboard = new google.visualization.Dashboard (document.getElementById('dashboard'));
 
-		var barChart = new google.visualization.ChartWrapper({
-          	chartType: 'BarChart',
+		var geoChart = new google.visualization.ChartWrapper({
+          	chartType: 'GeoChart',
           	containerId: 'chart1',
           		options: {
-            		width: '100%',
-                	height: '100%;',
+            		width: '90%',
+                	height: '90%;',
                 	legend: 'none',
-                	title: 'Age vs Employed',
+                	title: 'Country vs employment rate',
                 	backgroundColor: {
           				fill: "transparent"
         			}
               	},
               	view: {
-                	columns: [0, 1]
+                	columns: [3]
               }
           });
 
@@ -91,12 +92,13 @@ function drawDashboard () {
           	}
       	});
 
-      	dashboard.bind([ageRangeSlider, employmentFilter], [barChart]);      	
+      	dashboard.bind([ageRangeSlider, employmentFilter], [geoChart]);      	
       	dashboard.draw(data);
       	drawPie(dataFromJSON);
       	drawBar(dataFromJSON);
+        drawDonut(dataFromJSON);
 
-
+    ///// controls /////
 		google.visualization.events.addListener(ageRangeSlider, 'statechange', function() {
 			var range = ageRangeSlider.getState();
 			console.log(range);
@@ -116,6 +118,7 @@ function drawDashboard () {
 			};
 			// console.log(newData);
 			drawPie(newData);
+      drawDonut(newData);
 		});
 
 
@@ -147,10 +150,14 @@ function drawDashboard () {
       dataEmployed.addRow(["No", no]);
 
       var options = {
-		title: "Employment rate among the class",
-		backgroundColor: {
-			fill: "transparent"
-		}
+	      title: "Employment rate among the class",
+        slices: {  
+            0: {color: '#336E7B'},
+            1: {color: '#2574A9'}
+        },
+        backgroundColor: {
+		      fill: "transparent"
+		    }
       };
 
       var Pie = new google.visualization.PieChart(document.getElementById('chart2'));
@@ -184,4 +191,38 @@ function drawDashboard () {
 
       var Bar = new google.visualization.BarChart(document.getElementById('chart3'));
       Bar.draw(dataEmployed, options);
+  }
+
+  function drawDonut(data) {
+      var dataEmployed = new google.visualization.DataTable();
+      dataEmployed.addColumn('string', 'Employed');
+      dataEmployed.addColumn('number', 'Count');
+
+      var yes = 0, no = 0;
+
+      for (var i = 0; i < data.length; i++) {
+          if(data[i].employed == "Yes") {
+            yes++;
+          } else if (data[i].employed == "No") {
+            no++;
+          }
+      }
+      // console.log(data[i].employed);
+      dataEmployed.addRow(["Yes", yes]);
+      dataEmployed.addRow(["No", no]);
+
+      var options = {
+        title: "Employment rate among the class",
+        pieHole: 0.4,
+        slices: {  
+            0: {offset: 0.2, color: '#336E7B'},
+            1: {color: '#34495E'}
+          },
+        backgroundColor: {
+          fill: "transparent"
+        }
+      };
+
+      var Donut = new google.visualization.PieChart(document.getElementById('chart4'));
+      Donut.draw(dataEmployed, options);
   }
