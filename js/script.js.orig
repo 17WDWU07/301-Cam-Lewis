@@ -110,11 +110,13 @@ function drawDashboard () {
 			      maxValue: range.highValue
 			    }
 			]));
+			// console.log(view);
 			var filteredRows = view.ol;
 			var newData = [];
 			for (var i = 0; i < filteredRows.length; i++) {
 				newData.push(dataFromJSON[filteredRows[i]]); 
 			};
+			// console.log(newData);
 			drawPie(newData);
       drawDonut(newData);
 		});
@@ -143,17 +145,24 @@ function drawDashboard () {
             no++;
           }
       }
+      // console.log(data[i].employed);
       dataEmployed.addRow(["Yes", yes]);
       dataEmployed.addRow(["No", no]);
 
       var options = {
-	      title: "Employment rate among the class",  
+	      title: "Employment rate among the class",
+<<<<<<< HEAD
+        width: '400',
+        height: '400',
+        slices: {  
+=======
         width: '590',
-        height: '480',
+        height: '400',
         colors:['white', '#ffffff'],
         legend: {textStyle: {color: 'white'}},
         titleTextStyle: {color: 'white'},
         slices: {
+>>>>>>> master
             0: {color: '#336E7B'},
             1: {color: '#2574A9'}
         },
@@ -180,14 +189,13 @@ function drawDashboard () {
             no++;
           }
       }
+      // console.log(data[i].employed);
       dataEmployed.addRow(["Yes", yes]);
       dataEmployed.addRow(["No", no]);
 
       var options = {
 		title: "Employment rate among the class",
     legend: 'none',
-    hAxis: {textStyle:{color: 'white'}},
-    wAxis: {textStyle:{color: 'white'}},
     titleTextStyle: {color: 'white'},
 		backgroundColor: {
 			fill: "transparent"
@@ -212,14 +220,15 @@ function drawDashboard () {
             no++;
           }
       }
+      // console.log(data[i].employed);
       dataEmployed.addRow(["Yes", yes]);
       dataEmployed.addRow(["No", no]);
 
       var options = {
         title: "Employment rate among the class",
         pieHole: 0.4,
-        width: '540',
-        height: '460',
+        width: '570',
+        height: '500',
         legend: {textStyle: {color: 'white'}},
         titleTextStyle: {color: 'white'},
         slices: {  
