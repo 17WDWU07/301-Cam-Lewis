@@ -139,7 +139,8 @@ function drawDashboard () {
 			};
 			// console.log(newData);
 			drawPie(newData);
-      // drawDonut(newData);
+      drawDonut(newData);
+      drawBar(newData);
 		});
 
 
