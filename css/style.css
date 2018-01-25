@@ -2,6 +2,11 @@ h1, label, span, input, td {
 	color: #22313F;
 	font-family: sans-serif;
 	text-transform: uppercase;
+	text-align: center;
+}
+
+h1:hover {
+	color: #36D7B7;
 }
 
 * {
@@ -10,6 +15,7 @@ h1, label, span, input, td {
 }
 
 #body-container {
+	overflow: auto;
 	width: 100vw;
 	height: 100vh;
 	background-color: #C5EFF7;
@@ -20,8 +26,11 @@ h1, label, span, input, td {
 
 #dashboard {
 	width: 100%;
-	height: 90%;
+	height: 60%;
 	margin-top: 1em;
+	margin-left: 20px;
+	/*opacity: 0.8;*/
+	position: relative;
 }
 
 .section {
@@ -29,24 +38,88 @@ h1, label, span, input, td {
 	height: 50%;
 	float: left;
 }
+
 #chart1 {
 	background-color: #336E7B;
+	text-align: center;
+	border-radius: 50%;
+	width: 460px;
+	height: 460px;
+	position: relative;
 
+}
+
+#chart1.large1 {
+	width: 850px;
+	height: 850px;
+	/*border-radius: 50%;*/
+	background-color: #336E7B;
 }
 
 #chart2 {
 	background-color: #34495E;
 	text-align: center;
+	border-radius: 50%;
+	width: 460px;
+	height: 460px;
+	position: relative;
+}
+
+#chart2.large2 {
+	width: 850px;
+	height: 850px;
+	/*border-radius: 50%;*/
+	background-color: #34495E;
 }
 
 #chart3 {
-	background-color: #4B77BE;
+	background-color: #67809F;
+	text-align: center;
+	border-radius: 50%;
+	width: 460px;
+	height: 460px;
+	position: relative;
+}
+
+#chart3.large3 {
+	width: 850px;
+	height: 850px;
+	/*border-radius: 50%;*/
+	background-color: #67809F;
+}
+
+#chart4 {
+	background-color: #2574A9;
+	text-align: center;
+	border-radius: 50%;
+	width: 460px;
+	height: 460px;
+	position: relative;
+}
+
+#chart4.large4 {
+	width: 850px;
+	height: 850px;
+	/*border-radius: 50%;*/
+	background-color: #2574A9;
+}
+
+#controls {
+	width: 97%;
+	margin-top: 150px;
 
 }
 
 #control1 {
 	padding: 40px;
+	background-color: white;
+	/*border: 2px solid #22313F;*/
+	text-align: center;
 }
 #control2 {
 	padding: 40px;
+	margin-top: 5px;
+	background-color: white;
+	text-align: center;
+	/*border: 2px solid #22313F;*/
 }
