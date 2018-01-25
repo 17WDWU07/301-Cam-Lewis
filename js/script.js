@@ -39,7 +39,7 @@ function drawDashboard () {
 		url: "js/people_info.json",
 		dataType: "json",
 		success: function(dataFromJSON) {
-			console.log(dataFromJSON);
+			// console.log(dataFromJSON);
 
          	var data = new google.visualization.DataTable();
           	data.addColumn('number', 'Id');
@@ -67,7 +67,7 @@ function drawDashboard () {
     		options: {
       		width: '450',
         	height: '470',
-        	legend: 'none',
+        	legend: 'Country vs employment rate',
         	title: 'Country vs employment rate',
           colorAxis: {colors: ['#00853f', '#e31b23']},
         	backgroundColor: {
@@ -212,7 +212,7 @@ function drawDashboard () {
           }
       }
       // console.log(data[i].employed);
-      dataLiving.addRow(["with parents", parents]);
+      dataLiving.addRow(["Parents", parents]);
       dataLiving.addRow(["Homeowner", homeowner]);
       dataLiving.addRow(["Renting", renting]);
 
