@@ -1,11 +1,19 @@
 
-// var chartOne = document.getElementById("chart1");
-// var chartTwo = document.getElementById("chart2");
-// var chartThree = document.getElementById("chart3");
-// var chartFour = document.getElementById("chart4");
+var chartOne = document.getElementById("chart1");
+var chartTwo = document.getElementById("chart2");
+var chartThree = document.getElementById("chart3");
+var chartFour = document.getElementById("chart4");
+
+// $(function ()
+// {
+//     $('#chart1').on('click', function ()
+//     {
+//         $(this).width(1000).height(1000);
+//     });
+// });
 
 // $("#chart1").click(function(){
-// 		$("#chart1").toggleClass("large1");
+// 		$("#chart1").toggleClass("large1").show();
 // 		chartOne.scrollIntoView();
 // });
 // $("#chart2").click(function(){
@@ -57,8 +65,8 @@ function drawDashboard () {
           	chartType: 'GeoChart',
           	containerId: 'chart1',
           		options: {
-            		width: '90%',
-                	height: '90%;',
+            		width: '400',
+                	height: '400',
                 	legend: 'none',
                 	title: 'Country vs employment rate',
                 	backgroundColor: {
@@ -70,6 +78,11 @@ function drawDashboard () {
               }
           });
 
+
+
+
+        // console.dir(dataEmployed);
+        console.dir(chartOne);
 
 		var ageRangeSlider = new google.visualization.ControlWrapper({
           	controlType: 'NumberRangeFilter',
@@ -157,17 +170,22 @@ function drawDashboard () {
         },
         backgroundColor: {
 		      fill: "transparent"
-		    }
+		    },
+        width: '600',
+        height: '600' 
       };
 
       var Pie = new google.visualization.PieChart(document.getElementById('chart2'));
       Pie.draw(dataEmployed, options);
+
+
   }
+    
 
   function drawBar(data) {
       var dataEmployed = new google.visualization.DataTable();
       dataEmployed.addColumn('string', 'Employed');
-      dataEmployed.addColumn('number', 'Count');
+      dataEmployed.addColumn('number', 'Age');
 
       var yes = 0, no = 0;
 
@@ -183,10 +201,10 @@ function drawDashboard () {
       dataEmployed.addRow(["No", no]);
 
       var options = {
-		title: "Employment rate among the class",
-		backgroundColor: {
-			fill: "transparent"
-		}
+    		title: "Employment rate among the class",
+    		backgroundColor: {
+    			fill: "transparent"
+		    }
       };
 
       var Bar = new google.visualization.BarChart(document.getElementById('chart3'));
@@ -194,25 +212,25 @@ function drawDashboard () {
   }
 
   function drawDonut(data) {
-      var dataEmployed = new google.visualization.DataTable();
-      dataEmployed.addColumn('string', 'Employed');
-      dataEmployed.addColumn('number', 'Count');
+      var dataGender = new google.visualization.DataTable();
+      dataGender.addColumn('string', 'Gender');
+      dataGender.addColumn('number', 'Count');
 
-      var yes = 0, no = 0;
+      var male = 0, female = 0;
 
       for (var i = 0; i < data.length; i++) {
-          if(data[i].employed == "Yes") {
-            yes++;
-          } else if (data[i].employed == "No") {
-            no++;
+          if(data[i].gender == "Male") {
+            male++;
+          } else if (data[i].gender == "Female") {
+            female++;
           }
       }
       // console.log(data[i].employed);
-      dataEmployed.addRow(["Yes", yes]);
-      dataEmployed.addRow(["No", no]);
+      dataGender.addRow(["Male", male]);
+      dataGender.addRow(["Female", female]);
 
       var options = {
-        title: "Employment rate among the class",
+        title: "Gender makeup",
         pieHole: 0.4,
         slices: {  
             0: {offset: 0.2, color: '#336E7B'},
@@ -224,5 +242,5 @@ function drawDashboard () {
       };
 
       var Donut = new google.visualization.PieChart(document.getElementById('chart4'));
-      Donut.draw(dataEmployed, options);
+      Donut.draw(dataGender, options);
   }

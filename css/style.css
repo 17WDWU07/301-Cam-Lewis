@@ -54,6 +54,7 @@ h1:hover {
 	height: 850px;
 	/*border-radius: 50%;*/
 	background-color: #336E7B;
+	display: none;
 }
 
 #chart2 {
