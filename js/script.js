@@ -62,59 +62,67 @@ function drawDashboard () {
       	var dashboard = new google.visualization.Dashboard (document.getElementById('dashboard'));
 
 		var geoChart = new google.visualization.ChartWrapper({
-          	chartType: 'GeoChart',
-          	containerId: 'chart1',
-          		options: {
-            		width: '450',
-                	height: '470',
-                	legend: 'none',
-                	title: 'Country vs employment rate',
-                	backgroundColor: {
-          				fill: "transparent"
-        			}
-              	},
-              	view: {
-                	columns: [3]
-              }
-          });
-
-
-
-
-        // console.dir(dataEmployed);
-        console.dir(chartOne);
+      	chartType: 'GeoChart',
+      	containerId: 'chart1',
+    		options: {
+      		width: '450',
+        	height: '470',
+        	legend: 'none',
+        	title: 'Country vs employment rate',
+          colorAxis: {colors: ['#00853f', '#e31b23']},
+        	backgroundColor: {
+    				fill: "transparent"
+    			}
+      	},
+      	view: {
+        	columns: [3]
+        }
+    });
 
 		var ageRangeSlider = new google.visualization.ControlWrapper({
-          	controlType: 'NumberRangeFilter',
-          	containerId: 'control1',
-          	options: {
-            	filterColumnLabel: 'Age'
-          	}
-      	});
+      	controlType: 'NumberRangeFilter',
+      	containerId: 'control1',
+      	options: {
+        	filterColumnLabel: 'Age'
+      	}
+  	});
 
-      	var employmentFilter = new google.visualization.ControlWrapper({
-          	controlType: 'CategoryFilter',
-          	containerId: 'control2',
-          	options: {
-                filterColumnLabel: 'Employed',
-                ui: {
-                  allowMultiple: false,
-                  allowTyping: false,
-                  labelStacking: 'vertical'
-                }
-          	}
-      	});
+  	var employmentFilter = new google.visualization.ControlWrapper({
+      	controlType: 'CategoryFilter',
+        containerId: 'control2',
+      	options: {
+          filterColumnLabel: 'Employed',
+          ui: {
+            allowMultiple: false,
+            allowTyping: false,
+            labelStacking: 'horizontal'
+          }
+      	}
+  	});
 
-      	dashboard.bind([ageRangeSlider, employmentFilter], [geoChart]);      	
-      	dashboard.draw(data);
-      	drawPie(dataFromJSON);
-      	drawBar(dataFromJSON);
-        drawDonut(dataFromJSON);
+    var livingFilter = new google.visualization.ControlWrapper({
+        controlType: 'CategoryFilter',
+        containerId: 'control3',
+        options: {
+          filterColumnLabel: 'Living status',
+          ui: {
+            allowMultiple: false,
+            allowTyping: false,
+            labelStacking: 'vertical'
+          }
+        }
+    });
+
+  	dashboard.bind([ageRangeSlider, employmentFilter], [geoChart], [livingFilter]);      	
+  	dashboard.draw(data);
+  	drawPie(dataFromJSON);
+  	drawBar(dataFromJSON);
+    drawDonut(dataFromJSON);
 
     ///// controls /////
 		google.visualization.events.addListener(ageRangeSlider, 'statechange', function() {
 			var range = ageRangeSlider.getState();
-			console.log(range);
+			// console.log(range);
 			var view = new google.visualization.DataView(data);
 			view.setRows(data.getFilteredRows([
 			    {
@@ -131,7 +139,7 @@ function drawDashboard () {
 			};
 			// console.log(newData);
 			drawPie(newData);
-      drawDonut(newData);
+      // drawDonut(newData);
 		});
 
 
@@ -188,34 +196,39 @@ function drawDashboard () {
     
 
   function drawBar(data) {
-      var dataEmployed = new google.visualization.DataTable();
-      dataEmployed.addColumn('string', 'Employed');
-      dataEmployed.addColumn('number', 'Age');
+      var dataLiving = new google.visualization.DataTable();
+      dataLiving.addColumn('string', 'Current living status');
+      dataLiving.addColumn('number', 'number of people');
 
-      var yes = 0, no = 0;
+      var parents = 0, homeowner = 0, renting = 0;
 
       for (var i = 0; i < data.length; i++) {
-          if(data[i].employed == "Yes") {
-            yes++;
-          } else if (data[i].employed == "No") {
-            no++;
+          if(data[i].living_status == "Living with parents") {
+            parents++;
+          } else if (data[i].living_status == "Homeowner") {
+            homeowner++;
+          } else if (data[i].living_status == "Renting") {
+            renting++;
           }
       }
       // console.log(data[i].employed);
-      dataEmployed.addRow(["Yes", yes]);
-      dataEmployed.addRow(["No", no]);
+      dataLiving.addRow(["with parents", parents]);
+      dataLiving.addRow(["Homeowner", homeowner]);
+      dataLiving.addRow(["Renting", renting]);
 
       var options = {
-		title: "Employment rate among the class",
-    legend: 'none',
-    titleTextStyle: {color: 'white'},
-		backgroundColor: {
-			fill: "transparent"
-		}
+		    title: "Current living status",
+        legend: 'none',
+        titleTextStyle: {color: 'white'},
+        hAxis: {title: 'number of people', titleTextStyle: {color: 'white'}},
+        vAxis: {textStyle: {color: 'white'}},
+		    backgroundColor: {
+			     fill: "transparent"
+		    }
       };
 
       var Bar = new google.visualization.BarChart(document.getElementById('chart3'));
-      Bar.draw(dataEmployed, options);
+      Bar.draw(dataLiving, options);
   }
 
   function drawDonut(data) {
