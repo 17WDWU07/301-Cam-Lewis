@@ -151,6 +151,8 @@ function drawDashboard () {
 
       var options = {
 	      title: "Employment rate among the class",
+        width: '400',
+        height: '400',
         slices: {  
             0: {color: '#336E7B'},
             1: {color: '#2574A9'}
